@@ -209,6 +209,8 @@ static void ppm_test(uint32_t len)
 	ppm_recent.tv_sec = ppm_now.tv_sec;
 	ppm_recent.tv_nsec = ppm_now.tv_nsec;
 	nsamples = 0;
+	do_exit = 1;
+	rtlsdr_cancel_async(dev);
 }
 #endif
 
@@ -375,8 +377,7 @@ int main(int argc, char **argv)
 	verbose_reset_buffer(dev);
 
 	if ((test_mode == PPM_BENCHMARK) && !sync_mode) {
-		fprintf(stderr, "Reporting PPM error measurement every %i seconds...\n", ppm_duration);
-		fprintf(stderr, "Press ^C after a few minutes.\n");
+		fprintf(stderr, "Will report PPM error measurement after %i seconds...\n", ppm_duration);
 	}
 
 	if (test_mode == NO_BENCHMARK) {
