@@ -398,15 +398,6 @@ int main(int argc, char **argv)
 	parse_eeprom_to_conf(&conf, buf);
 	dump_config(&conf);
 
-	fprintf(stderr, "Write new configuration to device [y/n]? ");
-
-	while ((ch = getchar())) {
-		if (ch != 'y')
-			goto exit;
-		else
-			break;
-	}
-
 	r = rtlsdr_write_eeprom(dev, buf, 0, flash_file ? EEPROM_SIZE : 128);
 	if (r < 0)
 		fprintf(stderr, "Error while writing EEPROM: %i\n", r);
