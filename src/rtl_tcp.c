@@ -141,7 +141,7 @@ BOOL WINAPI
 sighandler(int signum)
 {
 	if (CTRL_C_EVENT == signum) {
-		fprintf(stderr, "Signal caught, exiting!\n");
+		fprintf(stderr, "Signal %d caught, exiting!\n", signum);
 		do_exit = 1;
 		rtlsdr_cancel_async(dev);
 		return TRUE;
@@ -151,7 +151,7 @@ sighandler(int signum)
 #else
 static void sighandler(int signum)
 {
-	fprintf(stderr, "Signal caught, exiting!\n");
+	fprintf(stderr, "Signal %d caught, exiting!\n", signum);
 	rtlsdr_cancel_async(dev);
 	do_exit = 1;
 }
