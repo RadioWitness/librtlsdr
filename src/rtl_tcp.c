@@ -226,7 +226,7 @@ static void *tcp_worker(void *arg)
 		r = pthread_cond_timedwait(&cond, &ll_mutex, &ts);
 		if(r == ETIMEDOUT) {
 			pthread_mutex_unlock(&ll_mutex);
-			printf("worker cond timeout\n");
+			fprintf(stderr, "worker cond timeout\n");
 			sighandler(0);
 			pthread_exit(NULL);
 		}
@@ -251,7 +251,7 @@ static void *tcp_worker(void *arg)
 					index += bytessent;
 				}
 				if(bytessent == SOCKET_ERROR || do_exit) {
-						printf("worker socket bye\n");
+						fprintf(stderr, "worker socket bye\n");
 						sighandler(0);
 						pthread_exit(NULL);
 				}
@@ -318,6 +318,7 @@ static void *command_worker(void *arg)
 			}
 			if(received == SOCKET_ERROR || do_exit) {
 				printf("comm recv bye\n");
+				fprintf(stderr, "comm recv bye\n");
 				sighandler(0);
 				pthread_exit(NULL);
 			}
